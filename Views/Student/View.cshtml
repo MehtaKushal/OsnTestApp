@@ -1,0 +1,109 @@
+﻿@model OsnTestApp.Data.Student
+@{
+}
+<h1>Edit Student</h1>
+<form method="post" action="View">
+    <div class="form-group">
+        <label asp-for="Id"></label>
+        <input asp-for="Id" class="form-control" readonly />
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DateOfBirth"></label>
+        <input asp-for="DateOfBirth" class="form-control" />
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone"></label>
+        <input asp-for="Phone" class="form-control" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Parent.Name">Parent Name</label>
+        <input asp-for="Parent.Name" class="form-control" />
+        <span asp-validation-for="Parent.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Parent.Address">Parent Address</label>
+        <input asp-for="Parent.Address" class="form-control" />
+        <span asp-validation-for="Parent.Address" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Parent.Phone">Parent Phone</label>
+        <input asp-for="Parent.Phone" class="form-control" />
+        <span asp-validation-for="Parent.Phone" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Parent.Email">Parent Email</label>
+        <input asp-for="Parent.Email" class="form-control" />
+        <span asp-validation-for="Parent.Email" class="text-danger"></span>
+    </div>
+    <br />
+    <table class="table table-bordered" id="marksTable">
+        <thead>
+            <tr>
+                <th>Subject Name</th>
+                <th>Term</th>
+                <th>Mark</th>
+                <th>IsAbsent</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Marks.Count; i++)
+            {
+                var mark = Model.Marks[i];
+                <tr>
+                    <td>
+                        <input asp-for="Marks[i].SubjectName" class="form-control" />
+                        <span asp-validation-for="Marks[i].SubjectName" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Marks[i].Term" class="form-control"/>
+                        <span asp-validation-for="Marks[i].Term" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Marks[i].Mark" class="form-control" />
+                        <span asp-validation-for="Marks[i].Mark" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Marks[i].IsAbsent" type="checkbox"  />
+                        <span asp-validation-for="Marks[i].IsAbsent" class="text-danger"></span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary" onclick="addNewRow()">Add New Row</button>
+    <script>
+        var index = 1;
+        function addNewRow() {
+            var table = document.getElementById("marksTable");
+            var row = table.insertRow(-1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            cell1.innerHTML = `<input name="Marks[${index}].SubjectName" class="form-control" />`;
+            cell2.innerHTML = `<input name="Marks[${index}].Term" class="form-control" />`;
+            cell3.innerHTML = `<input name="Marks[${index}].Mark" class="form-control" />`;
+            cell4.innerHTML = `<input type="checkbox" name="Marks[${index}].IsAbsent"/>`;
+            index++;
+        }
+    </script>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
