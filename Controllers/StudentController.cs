@@ -83,5 +83,21 @@ namespace OsnTestApp.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(Student delStudent)
+        {
+            var student = await dbContext.Student
+                           .Include(s => s.Parent)
+                           .Include(s => s.Marks)
+                           .FirstOrDefaultAsync(x => x.Id == delStudent.Id);
+            if (student != null)
+            {
+                dbContext.Student.Remove(student);
+                await dbContext.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
+
     }
 }
